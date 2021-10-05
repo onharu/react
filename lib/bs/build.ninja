@@ -1,0 +1,25 @@
+rescript = 1
+g_finger := /Users/onda/rescript-react-intro/node_modules/@rescript/react/lib/ocaml/install.stamp
+cleaner = /Users/onda/rescript-react-intro/node_modules/gentype/gentype.exe
+rule astj
+  command = /Users/onda/.nvm/versions/node/v14.17.6/lib/node_modules/rescript/darwin/bsc.exe  -bs-v 9.1.4 -bs-jsx 3 -bs-super-errors -absname -bs-ast -o $out $i
+o src/App.ast : astj ../../src/App.res
+rule deps
+  command = /Users/onda/.nvm/versions/node/v14.17.6/lib/node_modules/rescript/darwin/bsb_helper.exe -hash 37b779cc80368d30dac80eb5ea929da4 -bs-ns RescriptReactIntro $in
+  restat = 1
+o src/App.d : deps src/App.ast
+rule mij
+  command = /Users/onda/.nvm/versions/node/v14.17.6/lib/node_modules/rescript/darwin/bsc.exe -bs-ns RescriptReactIntro -I . -I src -I /Users/onda/rescript-react-intro/node_modules/@rescript/react/lib/ocaml -bs-super-errors  -bs-gentype /Users/onda/rescript-react-intro/node_modules/gentype/gentype.exe -bs-package-name rescript-react-intro -bs-package-output es6:$in_d:.js -bs-v $g_finger $i
+  dyndep = 1
+  restat = 1
+o src/App-RescriptReactIntro.cmj src/App-RescriptReactIntro.cmi ../../src/App.js : mij src/App.ast
+o src/index.ast : astj ../../src/index.res
+o src/index.d : deps src/index.ast
+o src/index-RescriptReactIntro.cmj src/index-RescriptReactIntro.cmi ../../src/index.js : mij src/index.ast
+o src/mythread.worker.ast : astj ../../src/mythread.worker.res
+o src/mythread.worker.d : deps src/mythread.worker.ast
+o src/mythread.worker-RescriptReactIntro.cmj src/mythread.worker-RescriptReactIntro.cmi ../../src/mythread.worker.js : mij src/mythread.worker.ast
+rule build_package
+  command = /Users/onda/.nvm/versions/node/v14.17.6/lib/node_modules/rescript/darwin/bsc.exe -w -49 -color always -no-alias-deps  $i
+  restat = 1
+o RescriptReactIntro.cmi : build_package RescriptReactIntro.mlmap

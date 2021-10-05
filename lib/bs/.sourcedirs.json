@@ -1,0 +1,1 @@
+{ "dirs" : [ "src" ] , "pkgs" : [ [ "gentype" , "/Users/onda/rescript-react-intro/node_modules/gentype" ] , [ "@rescript/react" , "/Users/onda/rescript-react-intro/node_modules/@rescript/react" ] ] , "generated" : [] }
