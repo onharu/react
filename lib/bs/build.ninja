@@ -1,5 +1,6 @@
 rescript = 1
 g_finger := /Users/onda/rescript-react-intro/node_modules/@rescript/react/lib/ocaml/install.stamp
+g_finger := /Users/onda/rescript-react-intro/node_modules/rescript-webapi/lib/ocaml/install.stamp
 cleaner = /Users/onda/rescript-react-intro/node_modules/gentype/gentype.exe
 rule astj
   command = /Users/onda/.nvm/versions/node/v14.17.6/lib/node_modules/rescript/darwin/bsc.exe  -bs-v 9.1.4 -bs-jsx 3 -bs-super-errors -absname -bs-ast -o $out $i
@@ -9,7 +10,7 @@ rule deps
   restat = 1
 o src/App.d : deps src/App.ast
 rule mij
-  command = /Users/onda/.nvm/versions/node/v14.17.6/lib/node_modules/rescript/darwin/bsc.exe -bs-ns RescriptReactIntro -I . -I src -I /Users/onda/rescript-react-intro/node_modules/@rescript/react/lib/ocaml -bs-super-errors  -bs-gentype /Users/onda/rescript-react-intro/node_modules/gentype/gentype.exe -bs-package-name rescript-react-intro -bs-package-output es6:$in_d:.js -bs-v $g_finger $i
+  command = /Users/onda/.nvm/versions/node/v14.17.6/lib/node_modules/rescript/darwin/bsc.exe -bs-ns RescriptReactIntro -I . -I src -I /Users/onda/rescript-react-intro/node_modules/@rescript/react/lib/ocaml -I /Users/onda/rescript-react-intro/node_modules/rescript-webapi/lib/ocaml -bs-super-errors  -bs-gentype /Users/onda/rescript-react-intro/node_modules/gentype/gentype.exe -bs-package-name rescript-react-intro -bs-package-output es6:$in_d:.js -bs-v $g_finger $i
   dyndep = 1
   restat = 1
 o src/App-RescriptReactIntro.cmj src/App-RescriptReactIntro.cmi ../../src/App.js : mij src/App.ast

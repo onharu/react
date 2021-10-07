@@ -3,6 +3,9 @@
 import * as Curry from "rescript/lib/es6/curry.js";
 import * as React from "react";
 import LogoSvg from "./logo.svg";
+import * as Pervasives from "rescript/lib/es6/pervasives.js";
+import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
+import * as Caml_option from "rescript/lib/es6/caml_option.js";
 
 import './App.css';
 import MyThread from "./mythread.worker.js";
@@ -10,15 +13,47 @@ import MyThread from "./mythread.worker.js";
 
 var startWebWorker = (() => new MyThread());
 
-function run(param) {
+function unsafeUnwrap(e) {
+  if (e !== undefined) {
+    return Caml_option.valFromOption(e);
+  } else {
+    return Pervasives.failwith("error!");
+  }
+}
+
+function transform(param) {
+  var txtelt = document.getElementById("txt");
+  var text = Belt_Option.map(Belt_Option.map((txtelt == null) ? undefined : Caml_option.some(txtelt), (function (prim) {
+              return prim;
+            })), (function (prim) {
+          return prim.value;
+        }));
+  var content = document.getElementById("content");
+  var content$1 = (content == null) ? undefined : Caml_option.some(content);
   var worker = Curry._1(startWebWorker, undefined);
-  worker.onmessage = (function (e) {
-      console.log("Worker\xe3\x81\x8b\xe3\x82\x89\xe5\x8f\x97\xe3\x81\x91\xe5\x8f\x96\xe3\x81\xa3\xe3\x81\x9f\xe3\x82\x82\xe3\x81\xae:" + e.data);
-      
-    });
-  worker.postMessage("Hello, Worker!!!");
+  var f = function (e) {
+    var f$1 = Belt_Option.map(content$1, (function (prim0, prim1) {
+            prim0.innerHTML = prim1;
+            
+          }));
+    if (f$1 !== undefined) {
+      return Curry._1(f$1, e.data);
+    }
+    
+  };
+  worker.onmessage = f;
+  worker.postMessage(unsafeUnwrap(text));
   
 }
+
+var run = (() => {
+  let worker = new MyThread();
+  let f = e => {
+    console.log("Worker から受け取ったもの:" + e["data"])
+  };
+  worker.onmessage = f;
+  worker.postMessage("Hello, Worker!!!");
+});
 
 var logo = LogoSvg;
 
@@ -30,18 +65,15 @@ function hello(param) {
 function App(Props) {
   return React.createElement("div", {
               className: "App"
-            }, React.createElement("textarea", undefined), React.createElement("header", {
-                  className: "App-header"
-                }, React.createElement("img", {
-                      className: "App-logo",
-                      alt: "logo",
-                      src: logo
-                    }), React.createElement("p", undefined, "Edit ", React.createElement("code", undefined, "src/App.js"), " and save to reload."), React.createElement("a", {
-                      className: "App-link",
-                      rel: "noopener noreferrer",
-                      target: "_blank",
-                      onClick: run
-                    }, "Learn React")));
+            }, React.createElement("button", {
+                  onClick: transform
+                }, "markdown"), React.createElement("textarea", {
+                  id: "txt",
+                  cols: 130,
+                  rows: 25
+                }), React.createElement("div", {
+                  id: "content"
+                }));
 }
 
 var make = App;
@@ -50,6 +82,8 @@ var $$default = App;
 
 export {
   startWebWorker ,
+  unsafeUnwrap ,
+  transform ,
   run ,
   logo ,
   hello ,
