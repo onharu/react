@@ -65,12 +65,11 @@ function hello(param) {
 function App(Props) {
   return React.createElement("div", {
               className: "App"
-            }, React.createElement("button", {
-                  onClick: transform
-                }, "markdown"), React.createElement("textarea", {
+            }, React.createElement("textarea", {
                   id: "txt",
                   cols: 130,
-                  rows: 25
+                  rows: 25,
+                  onKeyUp: transform
                 }), React.createElement("div", {
                   id: "content"
                 }));

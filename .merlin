@@ -1,14 +1,16 @@
 ####{BSB GENERATED: NO EDIT
 B lib/bs
 FLG -open RescriptReactIntro
-FLG -ppx '/Users/onda/.nvm/versions/node/v14.17.6/lib/node_modules/rescript/darwin/bsc.exe -as-ppx -bs-jsx 3'
-S /Users/onda/.nvm/versions/node/v14.17.6/lib/node_modules/rescript/lib/ocaml
-B /Users/onda/.nvm/versions/node/v14.17.6/lib/node_modules/rescript/lib/ocaml
+FLG -ppx '/Users/onda/rescript-react-intro/node_modules/rescript/darwin/bsc.exe -as-ppx -bs-jsx 3'
+S /Users/onda/rescript-react-intro/node_modules/rescript/lib/ocaml
+B /Users/onda/rescript-react-intro/node_modules/rescript/lib/ocaml
 FLG -w +a-4-9-20-40-41-42-50-61-102
 S /Users/onda/rescript-react-intro/node_modules/@rescript/react/lib/ocaml
 B /Users/onda/rescript-react-intro/node_modules/@rescript/react/lib/ocaml
 S /Users/onda/rescript-react-intro/node_modules/rescript-webapi/lib/ocaml
 B /Users/onda/rescript-react-intro/node_modules/rescript-webapi/lib/ocaml
+S /Users/onda/rescript-react-intro/node_modules/rescript-mpst/lib/ocaml
+B /Users/onda/rescript-react-intro/node_modules/rescript-mpst/lib/ocaml
 S src
 B lib/bs/src
 ####BSB GENERATED: NO EDIT}

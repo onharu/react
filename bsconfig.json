@@ -23,5 +23,5 @@
       "language": "typescript"
     },
   
-    "bs-dependencies": ["@rescript/react", "rescript-webapi"]
+    "bs-dependencies": ["@rescript/react", "rescript-webapi", "rescript-mpst"]
   }

@@ -8,6 +8,7 @@ open Document
 //open Element
 open HtmlInputElement
 open Belt.Option
+open RescriptMpst.Mpst
 
 type worker
 external unsafeAsHtmlInputElement: Element.t => HtmlInputElement.t = "%identity"
@@ -91,8 +92,8 @@ let hello : _ => unit = _ => {
 @react.component
 let make = () => {
   <div className="App">
-  <button onClick={transform}> {React.string("markdown")}</button>
-  <textarea id="txt" cols=130 rows=25></textarea>
+  //<button onClick={transform}> {React.string("markdown")}</button>
+  <textarea id="txt" cols=130 rows=25 onKeyUp={transform}></textarea>
   <div id="content"></div>
   
   
@@ -126,3 +127,5 @@ let transform : _ => unit = e =>
   }`
   )(e)
   */
+
+   //・webworkerゲーム（slack参照）メインスレッドだけをまずやる
