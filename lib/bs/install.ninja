@@ -11,6 +11,10 @@ o index-RescriptReactIntro.cmi : cp ../bs/src/index-RescriptReactIntro.cmi
 o index-RescriptReactIntro.cmj : cp ../bs/src/index-RescriptReactIntro.cmj
 o index-RescriptReactIntro.cmt : cp ../bs/src/index-RescriptReactIntro.cmt
 o index.res : cp ../../src/index.res
+o Protocol-RescriptReactIntro.cmi : cp ../bs/src/Protocol-RescriptReactIntro.cmi
+o Protocol-RescriptReactIntro.cmj : cp ../bs/src/Protocol-RescriptReactIntro.cmj
+o Protocol-RescriptReactIntro.cmt : cp ../bs/src/Protocol-RescriptReactIntro.cmt
+o Protocol.res : cp ../../src/Protocol.res
 o mythread.worker-RescriptReactIntro.cmi : cp ../bs/src/mythread.worker-RescriptReactIntro.cmi
 o mythread.worker-RescriptReactIntro.cmj : cp ../bs/src/mythread.worker-RescriptReactIntro.cmj
 o mythread.worker-RescriptReactIntro.cmt : cp ../bs/src/mythread.worker-RescriptReactIntro.cmt
@@ -18,4 +22,4 @@ o mythread.worker.res : cp ../../src/mythread.worker.res
 o RescriptReactIntro.cmi : cp ../bs/RescriptReactIntro.cmi
 o RescriptReactIntro.cmj : cp ../bs/RescriptReactIntro.cmj
 o RescriptReactIntro.cmt : cp ../bs/RescriptReactIntro.cmt
-build install.stamp : touch App-RescriptReactIntro.cmi App-RescriptReactIntro.cmj index-RescriptReactIntro.cmi index-RescriptReactIntro.cmj mythread.worker-RescriptReactIntro.cmi mythread.worker-RescriptReactIntro.cmj RescriptReactIntro.cmi RescriptReactIntro.cmj
+build install.stamp : touch App-RescriptReactIntro.cmi App-RescriptReactIntro.cmj index-RescriptReactIntro.cmi index-RescriptReactIntro.cmj Protocol-RescriptReactIntro.cmi Protocol-RescriptReactIntro.cmj mythread.worker-RescriptReactIntro.cmi mythread.worker-RescriptReactIntro.cmj RescriptReactIntro.cmi RescriptReactIntro.cmj

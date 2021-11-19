@@ -8,15 +8,16 @@ open Document
 //open Element
 open HtmlInputElement
 open Belt.Option
-open RescriptMpst.Mpst
+
+open RescriptMpst.WebWorker.MainSide
 
 type worker
 external unsafeAsHtmlInputElement: Element.t => HtmlInputElement.t = "%identity"
 @send external postMessage : (worker, string) => unit = "postMessage"
 @set external setOnMessage : (worker, 'a => unit) => unit = "onmessage"
 
-let startWebWorker : unit => worker = 
-  %raw(` () => new MyThread() `) 
+//let startWebWorker : unit => worker = 
+  //%raw(` () => new MyThread() `) 
 
 //option -> string
 let unsafeUnwrap = e =>
@@ -26,20 +27,32 @@ let unsafeUnwrap = e =>
   }
 
 let transform = _ => {
+  open RescriptMpst.Mpst
   let txtelt = document -> getElementById("txt")
-  let text = txtelt -> map(unsafeAsHtmlInputElement) -> map(value)
+  let text = txtelt -> map(unsafeAsHtmlInputElement) -> map(value)  
+  let text = Belt.Option.getExn(text)
   let content = document -> getElementById("content")
-  let worker = startWebWorker();
-  let f = e => {
+  let worker = newWorker(%raw(`new MyThread()`))
+
+  /*let f = e => {
         switch content -> map(Element.setInnerHTML) {
           | Some(f) => f((e["data"]))
           | None => ()
         }
       }
-      
-  worker -> setOnMessage(f)
-  worker -> postMessage(unsafeUnwrap(text))
+*/
 
+  let ch = RescriptMpst.MpstWorker.MainSide.initWorkers(Protocol.g, Protocol.main, [("Webwork", worker)])  
+
+  let ch = send(ch, x => #Webwork(x), x => #hello(x), text)
+  receive(ch, x => #Webwork(x))
+  ->Promise.thenResolve((#goodbye(v,ch)) => {
+      Js.Console.log(`main: I got: ${v}`)
+      Belt.Option.getExn(content) -> Element.setInnerHTML(v)
+      close(ch)
+  })->ignore
+  //worker -> setOnMessage(f)
+  //worker -> postMessage(unsafeUnwrap(text))
 }
 /*<javascript>version
 let transform : _ => unit = e => 
